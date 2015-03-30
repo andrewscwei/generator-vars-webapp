@@ -1,7 +1,7 @@
 {
     "name": "generator-vars-webapp",
-    "version": "0.1.1",
-    "description": "VARIANTE's Yeoman generator for a raw front-end web app.",
+    "version": "0.1.2",
+    "description": "Front-end web app with Gulp, Browserify, Sass/Stylus and more.",
     "license": "MIT",
     "repository":
     {
@@ -10,7 +10,7 @@
     },
     "author":
     {
-        "name": "VARIANTE"
+        "name": "Andrew Wei <andrew@variante.io>"
     },
     "main": "app/index.js",
     "engines":
@@ -36,6 +36,7 @@
         "jquery",
         "gulp",
         "vars",
+        "variante",
         "stylus",
         "sass",
         "browserify",
