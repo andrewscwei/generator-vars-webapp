@@ -1,7 +1,9 @@
-#<%= appname %>
+# <%= appname %>
+
 This project is scaffolded by [Yeoman](http://yeoman.io). See [generator-vars-webapp](https://github.com/VARIANTE/generator-vars-webapp.git) for more details.
 
-##Usage
+## Usage
+
 Install node modules if they are not already installed:
 ```
 $ npm install
@@ -28,7 +30,8 @@ $ gulp serve
 
 Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'.
 
-##Tasks
+## Tasks
+
 ```gulp build --debug```: Builds all source files in the ```app``` directory but skips all compression tasks.
 
 ```gulp build```: Builds all source fies in the ```app``` directory with asset compression such as CSS/HTML/JavaScript minification and deploys them to the ```build``` directory.
@@ -39,18 +42,21 @@ Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'
 
 See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify```, ```--skip-csso```, etc.
 
-##Cloud Setup (Linux)
-###Updating APT Packages
+## Cloud Setup (Linux)
+
+### Updating APT Packages
+
 ```
 $ sudo apt-get update
 ```
 
-###Installing ```git```
+### Installing ```git```
+
 ```
 $ sudo apt-get install git-core
 ```
 
-###Installing ```nvm```/```node```/```npm``` Globally
+### Installing ```nvm```/```node```/```npm``` Globally
 
 Install dependencies:
 ```
@@ -104,7 +110,8 @@ Set ```node``` version as default so shell can remember it the next time you log
 $ nvm alias default x.xx.x
 ```
 
-###Serving with Nginx
+### Serving with Nginx
+
 Install Nginx:
 ```
 $ sudo apt-get install nginx
@@ -122,8 +129,10 @@ $ sudo service nginx reload
 
 Visit external IP of your VM instance. Voila.
 
-##Common Issues
+## Common Issues
+
 1. If ```gulp-watch``` is giving ```Bus error: 10```, try updating ```node``` (v0.12.0 seems to be ok).
 
-##License
+## License
+
 This software is released under the [MIT License](http://opensource.org/licenses/MIT).

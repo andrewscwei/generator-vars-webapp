@@ -1,7 +1,9 @@
-#generator-vars-webapp
+# generator-vars-webapp
+
 VARIANTE's Yeoman generator for a raw front-end web app.
 
-##Features
+## Features
+
 - ```node```
 - ```bower```
 - ```gulp``` setup for CSS, JavaScript, and HTML minification as well as static asset revisioning (appending content hash to filenames)
@@ -10,12 +12,14 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 - Browserify (optional)
 - Sublime project (optional)
 
-##Libraries
+## Libraries
+
 - Bootstrap (optional)
 - Modernizr (optional)
 - jQuery
 
-##Structure
+## Structure
+
 ```
 .
 +-- app
@@ -62,7 +66,8 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 +-- package.json
 ```
 
-##Tasks
+## Tasks
+
 ```gulp build --debug```: Builds all source files in the ```app``` directory but skips all compression tasks.
 
 ```gulp build```: Builds all source fies in the ```app``` directory with asset compression such as CSS/HTML/JavaScript minification and deploys them to the ```build``` directory.
@@ -73,7 +78,8 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 
 See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify```, ```--skip-csso```, etc.
 
-##Usage
+## Usage
+
 Install ```yo```
 ```
 npm install -g yo
@@ -98,5 +104,6 @@ yo vars-webapp
 
 For details on initial setup procedures of the project, see its generated README.md file.
 
-##License
+## License
+
 This software is released under the [MIT License](http://opensource.org/licenses/MIT).
