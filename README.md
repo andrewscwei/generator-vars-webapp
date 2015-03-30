@@ -85,11 +85,9 @@ Install ```yo```
 npm install -g yo
 ```
 
-Clone this repo and symlink to npm (you may need ```sudo``` access)
+Install ```generator-vars-webapp```
 ```
-git clone https://github.com/variante/generator-vars-webapp.git
-cd generator-vars-webapp
-npm link
+npm install -g generator-vars-webapp
 ```
 
 Create a new directory for your project and ```cd``` into it
