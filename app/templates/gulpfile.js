@@ -23,8 +23,7 @@ var FILE_EXCLUDE_PATTERN = '{psd,ai}';
 // Load modules.
 var $ = require('gulp-load-plugins')();
 var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+var sequence = require('run-sequence');
 
 /**
  * Compresses and deploys images to the build directory. Compression is skipped if --debug is specified.
@@ -90,8 +89,7 @@ gulp.task('scripts', function()
     <% } %>
     return gulp.src(['<%= paths.src %>/**/*.'+SCRIPTS_PATTERN])
         .pipe($.jshint())
-        .pipe($.jshint.reporter('jshint-stylish'))
-        .pipe($.if(!browserSync.active, $.jshint.reporter('fail')))<% if (includeBrowserify) { %>
+        .pipe($.jshint.reporter('jshint-stylish'))<% if (includeBrowserify) { %>
         .pipe(browserified)<% } %>
         .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify()))
         .pipe(gulp.dest('<%= paths.tmp %>'));
@@ -166,17 +164,17 @@ gulp.task('build', ['static', 'templates'], function()
         .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-minify-html'], $.if('*.html', $.minifyHtml({empty: true, conditionals: true, loose: true }))))
         .pipe(gulp.dest('<%= paths.build %>'))
         .pipe($.size({ title: 'build', gzip: true }));
-        .pipe(reload({ stream: true, once: true }));
 });
 
 /**
  * Serves project to localhost. If --debug is specified, files will be served from
  * the temporary directory (with loose files) instead of the build directory.
  */
-gulp.task('serve', ['styles', 'fonts'], function()
+gulp.task('serve', function()
 {
     var debug = $.util.env['debug'];
     var baseDir = (debug) ? '<%= paths.tmp %>' : '<%= paths.build %>';
+    var browserSync = require('browser-sync');
 
     browserSync(
     {
@@ -201,7 +199,7 @@ gulp.task('serve', ['styles', 'fonts'], function()
             baseDir+'/**/*.'+SCRIPTS_PATTERN,
             baseDir+'/**/*.'+FONTS_PATTERN,
             baseDir+'/**/*.'+TEMPLATES_PATTERN
-        ]).on('change', reload);
+        ]).on('change', browserSync.reload);
 
         gulp.watch('<%= paths.src %>/**/*.'+IMAGES_PATTERN, ['images']);
         gulp.watch('<%= paths.src %>/**/*.'+STYLES_PATTERN, ['styles']);
@@ -212,19 +210,19 @@ gulp.task('serve', ['styles', 'fonts'], function()
     }
     else
     {
-        gulp.watch('<%= paths.src %>/**/*.'+IMAGES_PATTERN, ['build']);
-        gulp.watch('<%= paths.src %>/**/*.'+STYLES_PATTERN, ['build']);
-        gulp.watch('<%= paths.src %>/**/*.'+SCRIPTS_PATTERN, ['build']);
-        gulp.watch('<%= paths.src %>/**/*.'+FONTS_PATTERN, ['build']);
-        gulp.watch('<%= paths.src %>/**/*.'+TEMPLATES_PATTERN, ['build']);
-        gulp.watch('bower.json', ['build']);
+        gulp.watch('<%= paths.src %>/**/*.'+IMAGES_PATTERN, ['build', browserSync.reload]);
+        gulp.watch('<%= paths.src %>/**/*.'+STYLES_PATTERN, ['build', browserSync.reload]);
+        gulp.watch('<%= paths.src %>/**/*.'+SCRIPTS_PATTERN, ['build', browserSync.reload]);
+        gulp.watch('<%= paths.src %>/**/*.'+FONTS_PATTERN, ['build', browserSync.reload]);
+        gulp.watch('<%= paths.src %>/**/*.'+TEMPLATES_PATTERN, ['build', browserSync.reload]);
+        gulp.watch('bower.json', ['build', browserSync.reload]);
     }
 });
 
 /**
- * Default task. Invokes 'clean' and 'build' respectively.
+ * Default task.
  */
-gulp.task('default', ['clean'], function()
+gulp.task('default', function(callback)
 {
-    gulp.start('build');
+    sequence('build', 'serve', callback);
 });

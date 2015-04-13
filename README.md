@@ -46,8 +46,7 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 |   +-- index.html
 |   +-- README.md
 |   +-- robots.txt
-+-- build
-|   +-- runtime files
++-- build // runtime files go here
 +-- bower_components
 +-- node_modules
 +-- test
@@ -97,7 +96,7 @@ mkdir new-project-name && cd $_
 
 Generate the project
 ```
-yo vars-webapp
+yo vars-webapp [app-name]
 ```
 
 For details on initial setup procedures of the project, see its generated ```README.md``` file.

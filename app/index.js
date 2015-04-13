@@ -29,6 +29,9 @@ constructor: function()
 {
     yeoman.generators.Base.apply(this, arguments);
 
+    this.argument('projectname', { type: String, required: false });
+    this.appname = this.projectname || this.appname;
+
     this.option('test-framework',
     {
         desc: 'Test framework to be invoked',
@@ -85,12 +88,6 @@ welcoming: function()
     [
         {
             type: 'input',
-            name: 'appname',
-            message: 'What is the name of your project?',
-            default: this.appname
-        },
-        {
-            type: 'input',
             name: 'appauthor',
             message: 'Who is the author? (this will appear in the header of your source files)'
         },
@@ -103,7 +100,6 @@ welcoming: function()
 
     this.prompt(prompts, function(answers)
     {
-        this.appname = answers.appname;
         this.appauthor = answers.appauthor;
         this.appauthoremail = answers.appauthoremail;
 
