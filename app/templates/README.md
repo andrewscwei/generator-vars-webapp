@@ -16,16 +16,14 @@ $ bower install
 
 Test dev environment:
 ```
-$ gulp build --debug
-$ gulp serve --debug
+$ gulp --debug
 ```
 
 Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'.
 
 Test prod environment:
 ```
-$ gulp build
-$ gulp serve
+$ gulp
 ```
 
 Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'.

@@ -4,7 +4,6 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 
 ## Features
 
-- ```node```
 - ```bower```
 - ```gulp``` setup for CSS, JavaScript, and HTML minification as well as static asset revisioning (appending content hash to filenames)
 - ```browser-sync``` for rapid development
