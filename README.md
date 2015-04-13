@@ -78,22 +78,22 @@ See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify``
 
 ## Usage
 
-Install ```yo```
+Install ```yo```:
 ```
 npm install -g yo
 ```
 
-Install ```generator-vars-webapp```
+Install ```generator-vars-webapp```:
 ```
 npm install -g generator-vars-webapp
 ```
 
-Create a new directory for your project and ```cd``` into it
+Create a new directory for your project and ```cd``` into it:
 ```
 mkdir new-project-name && cd $_
 ```
 
-Generate the project
+Generate the project:
 ```
 yo vars-webapp [app-name]
 ```
