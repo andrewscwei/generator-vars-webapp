@@ -139,6 +139,10 @@ gulp.task('static', ['images', 'fonts', 'styles', 'scripts', 'extras'], function
 gulp.task('templates', function()
 {
     return gulp.src(['<%= paths.src %>/**/*.'+TEMPLATES_PATTERN])
+        .pipe($.fileInclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(gulp.dest('<%= paths.tmp %>'));
 });
 
