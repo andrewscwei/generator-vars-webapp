@@ -1,6 +1,6 @@
 {
     "name": "generator-vars-webapp",
-    "version": "0.1.7",
+    "version": "0.2.0",
     "description": "Front-end web app with Gulp, Browserify, Sass/Stylus and more.",
     "license": "MIT",
     "repository":

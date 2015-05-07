@@ -67,7 +67,7 @@ gulp.task('styles', function()
             onError: console.error.bind(console, 'Sass error:')
         }))<% } %>
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
-        .pipe($.sourcemaps.write())
+        .pipe($.sourcemaps.write('./'))
         .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-csso'], $.csso()))
         .pipe(gulp.dest('<%= paths.tmp %>'));
 });
@@ -80,19 +80,37 @@ gulp.task('styles', function()
 gulp.task('scripts', function()
 {<% if (includeBrowserify) { %>
     var browserify = require('browserify');
-    var transform = require('vinyl-transform');
-    var browserified = transform(function(filename)
+    var source = require('vinyl-source-stream');
+    var buffer = require('vinyl-buffer');
+    var globby = require('globby');
+    var reactify = require('reactify');
+    var es = require('event-stream');
+
+    return globby(['./<%= paths.src %>/**/*.'+SCRIPTS_PATTERN], function(err, files)
     {
-        var b = browserify(filename);
-        return b.bundle();
-    });
-    <% } %>
+        var tasks = files.map(function(entry)
+        {
+            return browserify({
+                entries: [entry],
+                debug: true,
+                transform: [reactify]
+            })
+            .bundle()
+            .pipe(source(entry.replace('<%= paths.src %>/', '')))
+            .pipe(buffer())
+            .pipe($.sourcemaps.init({ loadMaps: true }))
+            .pipe($.uglify()).on('error', $.util.log)
+            .pipe($.sourcemaps.write('./'))
+            .pipe(gulp.dest('<%= paths.tmp %>'));
+        });
+
+        return es.merge.apply(null, tasks);
+    });<% } else { %>
     return gulp.src(['<%= paths.src %>/**/*.'+SCRIPTS_PATTERN])
         .pipe($.jshint())
-        .pipe($.jshint.reporter('jshint-stylish'))<% if (includeBrowserify) { %>
-        .pipe(browserified)<% } %>
+        .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify()))
-        .pipe(gulp.dest('<%= paths.tmp %>'));
+        .pipe(gulp.dest('<%= paths.tmp %>'));<% } %>
 });
 
 /**
