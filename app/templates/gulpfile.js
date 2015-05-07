@@ -67,7 +67,7 @@ gulp.task('styles', function()
             onError: console.error.bind(console, 'Sass error:')
         }))<% } %>
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
-        .pipe($.sourcemaps.write('./'))
+        .pipe($.sourcemaps.write())
         .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-csso'], $.csso()))
         .pipe(gulp.dest('<%= paths.tmp %>'));
 });
@@ -99,7 +99,7 @@ gulp.task('scripts', function()
             .pipe(source(entry.replace('<%= paths.src %>/', '')))
             .pipe(buffer())
             .pipe($.sourcemaps.init({ loadMaps: true }))
-            .pipe($.uglify()).on('error', $.util.log)
+            .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())).on('error', $.util.log)
             .pipe($.sourcemaps.write('./'))
             .pipe(gulp.dest('<%= paths.tmp %>'));
         });
@@ -109,7 +109,7 @@ gulp.task('scripts', function()
     return gulp.src(['<%= paths.src %>/**/*.'+SCRIPTS_PATTERN])
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'))
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify()))
+        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())).on('error', $.util.log)
         .pipe(gulp.dest('<%= paths.tmp %>'));<% } %>
 });
 
