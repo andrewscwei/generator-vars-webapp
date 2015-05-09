@@ -43,11 +43,8 @@
         "main-bower-files": "^2.5.0",
         "wiredep": "^2.2.2",<% if (includeBrowserify) { %>
         "browserify": "^9.0.3",
-        "event-stream": "^3.3.1",
-        "globby": "^2.0.0",
         "reactify": "^1.1.0",
-        "vinyl-buffer": "^1.0.0",
-        "vinyl-source-stream": "^1.1.0",<% } %>
+        "through2": "^0.6.5",<% } %>
         "run-sequence": "^1.0.2",
         "opn": "^1.0.1"
     }
