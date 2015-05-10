@@ -82,8 +82,10 @@ gulp.task('scripts', function()
     var browserify = require('browserify');
     var reactify = require('reactify');
     var through = require('through2');
-
+    <% } %>
     return gulp.src(['./<%= paths.src %>/**/*.'+SCRIPTS_PATTERN])
+        .pipe($.jshint())
+        .pipe($.jshint.reporter('jshint-stylish'))<% if (includeBrowserify) { %>
         .pipe(through.obj(function(file, enc, next)
         {
             browserify({ entries: [file.path], debug: true, transform: [reactify] })
@@ -93,10 +95,7 @@ gulp.task('scripts', function()
                     file.contents = res;
                     next(null, file);
                 });
-        }))<% } else { %>
-    return gulp.src(['<%= paths.src %>/**/*.'+SCRIPTS_PATTERN])<% } %>
-        .pipe($.jshint())
-        .pipe($.jshint.reporter('jshint-stylish'))
+        }))<% } %>
         .pipe($.sourcemaps.init({ loadMaps: true }))
         .pipe($.sourcemaps.write('./'))
         .pipe(gulp.dest('<%= paths.tmp %>'));
