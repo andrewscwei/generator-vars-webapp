@@ -159,17 +159,23 @@ gulp.task('clean', require('del').bind(null, ['<%= paths.tmp %>', '<%= paths.bui
  */
 gulp.task('build', ['static', 'templates'], function()
 {
+    var debug = $.util.env['debug'];
+    var skipCSSO = $.util.env['skip-csso'] || debug;
+    var skipUglify = $.util.env['skip-uglify'] || debug;
+    var skipRev = $.util.env['skip-rev'] || debug;
+    var skipMinifyHTML = $.util.env['skip-minify-html'] || debug;
+
     var assets = $.useref.assets({searchPath: ['<%= paths.tmp %>', '.']});
 
     return gulp.src(['<%= paths.tmp %>/**/*.'+TEMPLATES_PATTERN])
         .pipe(assets)
-        .pipe($.if('*.'+STYLES_PATTERN, $.if(!$.util.env['debug'] && !$.util.env['skip-csso'], $.csso())))
-        .pipe($.if('*.'+SCRIPTS_PATTERN, $.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify()))).on('error', $.util.log)
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-rev'], $.rev()))
+        .pipe($.if(!skipCSSO, $.if('*.css', $.csso())))
+        .pipe($.if(!skipUglify, $.if('*.js', $.uglify()))).on('error', $.util.log)
+        .pipe($.if(!skipRev, $.rev()))
         .pipe(assets.restore())
         .pipe($.useref())
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-rev'], $.revReplace()))
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-minify-html'], $.if('*.html', $.minifyHtml({empty: true, conditionals: true, loose: true }))))
+        .pipe($.if(!skipRev, $.revReplace()))
+        .pipe($.if(!skipMinifyHTML, $.if('*.html', $.minifyHtml({empty: true, conditionals: true, loose: true }))))
         .pipe(gulp.dest('<%= paths.build %>'))
         .pipe($.size({ title: 'build', gzip: true }));
 });
