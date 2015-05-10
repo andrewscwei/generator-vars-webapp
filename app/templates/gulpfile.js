@@ -97,6 +97,7 @@ gulp.task('scripts', function()
                 });
         }))<% } %>
         .pipe($.sourcemaps.init({ loadMaps: true }))
+        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())).on('error', $.util.log)
         .pipe($.sourcemaps.write('./'))
         .pipe(gulp.dest('<%= paths.tmp %>'));
 });
