@@ -50,8 +50,7 @@ gulp.task('fonts', function()
 
 /**
  * Processes all CSS files if preprocessed CSS languages are used (i.e. Stylus, Sass). Copies the processed
- * files to a temporary directory to be iterated on in subsequent tasks. If --debug is specified, minification
- * will be skipped.
+ * files to a temporary directory to be iterated on in subsequent tasks. Minification is done in the main 'build' task.
  */
 gulp.task('styles', function()
 {
@@ -68,14 +67,13 @@ gulp.task('styles', function()
         }))<% } %>
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
         .pipe($.sourcemaps.write())
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-csso'], $.csso()))
         .pipe(gulp.dest('<%= paths.tmp %>'));
 });
 
 /**
  * Processes and lints all JavaScript files. If Browserify is included this task will bundle up all associated files. Processed
- * JavaScript files are copied to a temporary directory to be iterated on in subsequent tasks. If --debug is specified, uglification
- * will be skipped.
+ * JavaScript files are copied to a temporary directory to be iterated on in subsequent tasks. Uglification is done in the main
+ * 'build' task.
  */
 gulp.task('scripts', function()
 {<% if (includeBrowserify) { %>
@@ -97,7 +95,6 @@ gulp.task('scripts', function()
                 });
         }))<% } %>
         .pipe($.sourcemaps.init({ loadMaps: true }))
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())).on('error', $.util.log)
         .pipe($.sourcemaps.write('./'))
         .pipe(gulp.dest('<%= paths.tmp %>'));
 });
