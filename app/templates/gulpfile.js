@@ -95,14 +95,12 @@ gulp.task('scripts', function()
                 });
         }))
         .pipe($.sourcemaps.init({ loadMaps: true }))
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())).on('error', $.util.log)
         .pipe($.sourcemaps.write('./'))
         .pipe(gulp.dest('<%= paths.tmp %>'));<% } else { %>
     return gulp.src(['<%= paths.src %>/**/*.'+SCRIPTS_PATTERN])
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.sourcemaps.init({ loadMaps: true }))
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())).on('error', $.util.log)
         .pipe($.sourcemaps.write('./'))
         .pipe(gulp.dest('<%= paths.tmp %>'));<% } %>
 });
@@ -172,7 +170,7 @@ gulp.task('build', ['static', 'templates'], function()
     return gulp.src(['<%= paths.tmp %>/**/*.'+TEMPLATES_PATTERN])
         .pipe(assets)
         .pipe($.if('*.'+STYLES_PATTERN, $.if(!$.util.env['debug'] && !$.util.env['skip-csso'], $.csso())))
-        .pipe($.if('*.'+SCRIPTS_PATTERN, $.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())))
+        .pipe($.if('*.'+SCRIPTS_PATTERN, $.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify()))).on('error', $.util.log)
         .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-rev'], $.rev()))
         .pipe(assets.restore())
         .pipe($.useref())
