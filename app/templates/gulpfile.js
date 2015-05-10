@@ -93,16 +93,13 @@ gulp.task('scripts', function()
                     file.contents = res;
                     next(null, file);
                 });
-        }))
-        .pipe($.sourcemaps.init({ loadMaps: true }))
-        .pipe($.sourcemaps.write('./'))
-        .pipe(gulp.dest('<%= paths.tmp %>'));<% } else { %>
-    return gulp.src(['<%= paths.src %>/**/*.'+SCRIPTS_PATTERN])
+        }))<% } else { %>
+    return gulp.src(['<%= paths.src %>/**/*.'+SCRIPTS_PATTERN])<% } %>
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.sourcemaps.init({ loadMaps: true }))
         .pipe($.sourcemaps.write('./'))
-        .pipe(gulp.dest('<%= paths.tmp %>'));<% } %>
+        .pipe(gulp.dest('<%= paths.tmp %>'));
 });
 
 /**
