@@ -30,8 +30,11 @@ var sequence = require('run-sequence');
  */
 gulp.task('images', function()
 {
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var skipImageMin = $.util.env['skip-imagemin'] || debug;
+
     return gulp.src(['<%= paths.src %>/**/*'+IMAGES_PATTERN])
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-imagemin'], $.cache($.imagemin({
+        .pipe($.if(!skipImageMin, $.cache($.imagemin({
             progressive: true,
             interlaced: true,
             svgoPlugins: [{cleanupIDs: false}]
@@ -127,7 +130,7 @@ gulp.task('templates', function()
     return gulp.src(['<%= paths.src %>/**/*.'+TEMPLATES_PATTERN])
         .pipe($.fileInclude({
             prefix: '@@',
-            basepath: '@file'
+            basepath: '<%= paths.src %>/'
         }))
         .pipe(gulp.dest('<%= paths.tmp %>'));
 });
@@ -159,7 +162,7 @@ gulp.task('clean', require('del').bind(null, ['<%= paths.tmp %>', '<%= paths.bui
  */
 gulp.task('build', ['static', 'templates'], function()
 {
-    var debug = $.util.env['debug'];
+    var debug = $.util.env['debug'] || $.util.env['d'];
     var skipCSSO = $.util.env['skip-csso'] || debug;
     var skipUglify = $.util.env['skip-uglify'] || debug;
     var skipRev = $.util.env['skip-rev'] || debug;
@@ -186,14 +189,15 @@ gulp.task('build', ['static', 'templates'], function()
  */
 gulp.task('serve', function()
 {
-    var debug = $.util.env['debug'];
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var port = $.util.env['port'] || $.util.env['p'];
     var baseDir = (debug) ? '<%= paths.tmp %>' : '<%= paths.build %>';
     var browserSync = require('browser-sync');
 
     browserSync(
     {
         notify: false,
-        port: 9000,
+        port: (typeof port === 'number') ? port : 9000,
         server:
         {
             baseDir: [baseDir],
@@ -238,5 +242,12 @@ gulp.task('serve', function()
  */
 gulp.task('default', function(callback)
 {
-    sequence('build', 'serve', callback);
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var serve = $.util.env['serve'] || $.util.env['s'];
+
+    var seq = (debug) ? ['build'] : ['clean', 'build'];
+    if (serve) seq.push('serve');
+    seq.push(callback);
+
+    sequence.apply(null, seq);
 });
