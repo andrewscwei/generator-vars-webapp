@@ -4,13 +4,13 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 
 ## Features
 
-- ```bower```
-- ```gulp``` setup for CSS, JavaScript, and HTML minification as well as static asset revisioning (appending content hash to filenames)
-- ```browser-sync``` for rapid development
-- Scalable and Modular Architecture for CSS (SMACSS) setup with CSS preprocessor Sass/Stylus (optional)
+- [Bower](http://bower.io)
+- [Gulp](http://gulpjs.com) setup for CSS, JavaScript, and HTML minification as well as static asset revisioning (appending content hash to filenames)
+- [BrowserSync](http://www.browsersync.io) for rapid development
+- [Sass](http://sass-lang.com)/[Stylus](https://learnboost.github.io/stylus/) with Scalable and Modular Architecture (SMACSS) setup
 - templating using ```gulp-file-include```
-- Browserify (optional)
-- Sublime project (optional)
+- [Browserify](http://browserify.org)
+- [Sublime](http://www.sublimetext.com) project (optional)
 
 ## Libraries
 
