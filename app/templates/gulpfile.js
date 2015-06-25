@@ -13,7 +13,7 @@ var IMAGES_PATTERN = '{jpg,jpeg,gif,png,svg,ico}';
 var VIDEOS_PATTERN = '{ogv,mp4}';
 var SCRIPTS_PATTERN = 'js';
 var SOURCEMAPS_PATTERN = '{css.map,js.map}';
-var STYLES_PATTERN = <% if (css == 'Stylus') { %>'{css,styl}'<% } else if (css == 'Sass') { %>'{css,scss}'<% } else { %>'css'<% } %>;
+var STYLES_PATTERN = <% if (css == 'Stylus') { %>'{css,styl}'<% } else if (css == 'Sass') { %>'{css,scss,sass}'<% } else { %>'css'<% } %>;
 var TEMPLATES_PATTERN = '{html,shtml,htm,html.erb,asp,php}';
 var EXTRAS_PATTERN = '{txt,htaccess}';
 var FONTS_PATTERN = '{eot,svg,ttf,woff,woff2}';
