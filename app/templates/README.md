@@ -30,13 +30,13 @@ Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'
 
 ## Tasks
 
-```gulp build --debug```: Builds all source files in the ```app``` directory but skips all compression tasks.
+```gulp build --debug```: Builds all source files in the ```<%= paths.src %>``` directory but skips all compression tasks.
 
-```gulp build```: Builds all source fies in the ```app``` directory with asset compression such as CSS/HTML/JavaScript minification and deploys them to the ```build``` directory.
+```gulp build```: Builds all source files in the ```<%= paths.src %>``` directory with asset compression such as CSS/HTML/JavaScript minification and deploys them to the ```<%= paths.build %>``` directory.
 
-```gulp serve --debug```: Serves the ```.tmp``` directory to ```localhost``` and immediately watches source files for changes. Any change in the source files will invoke its corresponding build tasks. This is great for debugging.
+```gulp serve --debug --watch```: Serves the ```<%= paths.tmp %>``` directory to ```localhost``` and immediately watches source files for changes. Any change in the source files will invoke its corresponding build tasks. This is great for debugging.
 
-```gulp serve```: Serves the ```build``` directory to ```localhost``` and immediately watches source files for changes. Any change in the source files will invoke a ```gulp build```. This command is not meant for debugging purposes and is for production testing only.
+```gulp serve```: Serves the ```<%= paths.build %>``` directory to ```localhost```.
 
 See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify```, ```--skip-csso```, etc.
 
@@ -54,58 +54,16 @@ $ sudo apt-get update
 $ sudo apt-get install git-core
 ```
 
-### Installing ```nvm```/```node```/```npm``` Globally
+### Installing ```nvm``` Globally
 
-Install dependencies:
+Install ```nvm``` (see [https://github.com/xtuple/nvm](https://github.com/xtuple/nvm)):
 ```
-$ sudo apt-get install build-essential openssl libssl-dev curl
-```
-
-Clone ```nvm``` repo:
-```
-$ sudo git clone https://github.com/creationix/nvm.git /opt/nvm
-```
-
-Create directories where ```nvm``` and ```node``` will be globally installed to:
-```
-$ sudo mkdir /usr/local/nvm
-$ sudo mkdir /usr/local/node
-```
-
-Change the permissions of the newly created directories so you can write to it when you install ```node```:
-```
-$ sudo chown -R your_admin_user_name /usr/local/nvm
-$ sudo chmod -R 775 /usr/local/nvm
-$ sudo chown -R your_admin_user_name /usr/local/node
-$ sudo chmod -R 775 /usr/local/node
-```
-
-Create ```nvm.sh``` to be executed everytime the shell loads up:
-```
-$ sudo touch /etc/profile.d/nvm.sh
-```
-
-Add the following to ```nvm.sh```:
-```
-export NVM_DIR=/usr/local/nvm
-source /opt/nvm/nvm.sh
-export NPM_CONFIG_PREFIX=/usr/local/node
-export PATH="/usr/local/node/bin:$PATH"
-```
-
-Log out and log back in or ```source``` the file so changes can take effect:
-```
-$ source /etc/profile.d/nvm.sh
+$ sudo wget -qO- https://raw.githubusercontent.com/xtuple/nvm/master/install.sh | sudo bash
 ```
 
 Install preferred ```node``` version:
 ```
 $ nvm install x.xx.x
-```
-
-Set ```node``` version as default so shell can remember it the next time you log in:
-```
-$ nvm alias default x.xx.x
 ```
 
 ### Serving with Nginx

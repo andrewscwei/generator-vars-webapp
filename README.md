@@ -9,8 +9,7 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 - [BrowserSync](http://www.browsersync.io) for rapid development
 - [Sass](http://sass-lang.com)/[Stylus](https://learnboost.github.io/stylus/) with Scalable and Modular Architecture (SMACSS) setup
 - templating using ```gulp-file-include```
-- [Browserify](http://browserify.org)
-- [Sublime](http://www.sublimetext.com) project (optional)
+- [Browserify](http://browserify.org) with Babelify and Watchify
 
 ## Libraries
 
@@ -35,20 +34,34 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 |   +-- scripts
 |   |   +-- main.js
 |   +-- .htaccess
+|   +-- 404.html
 |   +-- apple-touch-icon-57x57.png
 |   +-- apple-touch-icon-72x72.png
 |   +-- apple-touch-icon-114x114.png
 |   +-- apple-touch-icon.png
 |   +-- favico.ico
 |   +-- favico.png
-|   +-- og-image.png
-|   +-- 404.html
 |   +-- index.html
+|   +-- og-image.png
 |   +-- README.md
 |   +-- robots.txt
 +-- build // runtime files go here
 +-- bower_components
 +-- node_modules
++-- tasks
+|   +-- build.js
+|   +-- clean.js
+|   +-- config.js
+|   +-- extras.js
+|   +-- fonts.js
+|   +-- images.js
+|   +-- scripts.js
+|   +-- serve.js
+|   +-- static.js
+|   +-- styles.js
+|   +-- templates.js
+|   +-- videos.js
+|   +-- wiredep.js
 +-- test
 |   +-- bower_components
 |   +-- spec
@@ -71,9 +84,9 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 
 ```gulp build```: Builds all source fies in the ```app``` directory with asset compression such as CSS/HTML/JavaScript minification and deploys them to the ```build``` directory.
 
-```gulp serve --debug```: Serves the ```.tmp``` directory to ```localhost``` and immediately watches source files for changes. Any change in the source files will invoke its corresponding build tasks. This is great for debugging.
+```gulp serve --debug --watch```: Serves the ```.tmp``` directory to ```localhost``` and immediately watches source files for changes. Any change in the source files will invoke its corresponding build tasks. This is great for debugging.
 
-```gulp serve```: Serves the ```build``` directory to ```localhost``` and immediately watches source files for changes. Any change in the source files will invoke a ```gulp build```. This command is not meant for debugging purposes and is for production testing only.
+```gulp serve```: Serves the ```build``` directory to ```localhost```.
 
 See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify```, ```--skip-csso```, etc.
 

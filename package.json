@@ -1,6 +1,6 @@
 {
     "name": "generator-vars-webapp",
-    "version": "0.5.2",
+    "version": "1.0.0",
     "description": "Front-end web app + Gulp, Browserify, Sass/Stylus and more.",
     "license": "MIT",
     "repository":
@@ -12,6 +12,7 @@
     {
         "name": "Andrew Wei <andrew@variante.io>"
     },
+    "homepage": "https://github.com/VARIANTE/generator-vars-webapp#readme",
     "main": "app/index.js",
     "engines":
     {
@@ -42,6 +43,9 @@
         "browserify",
         "wiredep",
         "browser-sync",
+        "babel",
+        "babelify",
+        "watchify",
         "file-include",
         "templating",
         "smacss"

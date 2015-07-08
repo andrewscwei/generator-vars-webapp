@@ -43,12 +43,6 @@ module.exports = yeoman.generators.Base.extend
                 desc: 'Skips the installation of dependencies',
                 type: Boolean
             });
-
-            this.option('skip-install-message',
-            {
-                desc: 'Skips the message after the installation of dependencies',
-                type: Boolean
-            });
         },
 
         initializing: function()
@@ -158,12 +152,7 @@ module.exports = yeoman.generators.Base.extend
                                 name: 'Modernizr',
                                 value: 'includeModernizr',
                                 checked: true
-                            },
-                            {
-                                name: 'Sublime',
-                                value: 'includeSublime',
-                                checked: true
-                            },
+                            }
                         ]
                     }
                 ];
@@ -180,80 +169,53 @@ module.exports = yeoman.generators.Base.extend
                     this.includeBrowserify = hasFeature('includeBrowserify');
                     this.includeBootstrap = hasFeature('includeBootstrap');
                     this.includeModernizr = hasFeature('includeModernizr');
-                    this.includeSublime = hasFeature('includeSublime');
 
                     done();
                 }.bind(this));
             }
         },
 
-
-        /**
-         * Writes project files to destination.
-         */
         writing:
         {
-            sublime: function()
-            {
-                if (this.includeSublime)
-                {
-                    this.template('sublime-project', this.appname + '.sublime-project');
-                }
-            },
-
-            gulpfile: function()
-            {
-                this.template('gulpfile.js');
-            },
-
-            package: function()
-            {
-                this.template('package.json', 'package.json');
-            },
-
-            git: function()
-            {
-                this.copy('gitignore', '.gitignore');
-                this.copy('gitattributes', '.gitattributes');
-            },
-
-            bower: function()
-            {
-                this.copy('bowerrc', '.bowerrc');
-                this.template('bower.json', 'bower.json');
-            },
-
-            jshint: function()
-            {
-                this.copy('jshintrc', '.jshintrc');
-            },
-
-            editorConfig: function()
-            {
-                this.copy('editorconfig', '.editorconfig');
-            },
-
-            readme: function()
-            {
-                this.template('README.md', 'README.md');
-            },
-
             config: function()
             {
+                this.copy('buildpacks', '.buildpacks');
+                this.copy('gitignore', '.gitignore');
+                this.copy('gitattributes', '.gitattributes');
+                this.copy('bowerrc', '.bowerrc');
+                this.copy('jshintrc', '.jshintrc');
+                this.copy('editorconfig', '.editorconfig');
                 this.copy('robots.txt', this.paths.src+'/robots.txt');
                 this.copy('htaccess', this.paths.src+'/.htaccess');
+                this.template('gulpfile.js');
+                this.template('tasks/build.js');
+                this.template('tasks/clean.js');
+                this.template('tasks/config.js');
+                this.template('tasks/extras.js');
+                this.template('tasks/fonts.js');
+                this.template('tasks/images.js');
+                this.template('tasks/scripts.js');
+                this.template('tasks/serve.js');
+                this.template('tasks/static.js');
+                this.template('tasks/styles.js');
+                this.template('tasks/templates.js');
+                this.template('tasks/videos.js');
+                this.template('tasks/wiredep.js');
+                this.template('package.json', 'package.json');
+                this.template('bower.json', 'bower.json');
+                this.template('README.md', 'README.md');
             },
 
             images: function()
             {
                 this.mkdir(this.paths.src+'/images');
-                this.copy('favicon.ico', this.paths.src+'/favicon.ico');
-                this.copy('favicon.png', this.paths.src+'/favicon.png');
-                this.copy('apple-touch-icon-57x57.png', this.paths.src+'/apple-touch-icon-57x57.png');
-                this.copy('apple-touch-icon-72x72.png', this.paths.src+'/apple-touch-icon-72x72.png');
-                this.copy('apple-touch-icon-114x114.png', this.paths.src+'/apple-touch-icon-114x114.png');
-                this.copy('apple-touch-icon.png', this.paths.src+'/apple-touch-icon.png');
-                this.copy('og-image.png', this.paths.src+'/og-image.png');
+                this.copy('app/favicon.ico', this.paths.src+'/favicon.ico');
+                this.copy('app/favicon.png', this.paths.src+'/favicon.png');
+                this.copy('app/apple-touch-icon-57x57.png', this.paths.src+'/apple-touch-icon-57x57.png');
+                this.copy('app/apple-touch-icon-72x72.png', this.paths.src+'/apple-touch-icon-72x72.png');
+                this.copy('app/apple-touch-icon-114x114.png', this.paths.src+'/apple-touch-icon-114x114.png');
+                this.copy('app/apple-touch-icon.png', this.paths.src+'/apple-touch-icon.png');
+                this.copy('app/og-image.png', this.paths.src+'/og-image.png');
             },
 
             styles: function()
@@ -272,23 +234,23 @@ module.exports = yeoman.generators.Base.extend
                     default: ext += 'css'; break;
                 }
 
-                if (this.css !== 'Vanilla') this.template('styles/main'+ext, this.paths.src+'/styles/main'+ext);
-                this.template('styles/base/normalize'+ext, this.paths.src+'/styles/base/normalize'+ext);
-                this.template('styles/base/typography'+ext, this.paths.src+'/styles/base/typography'+ext);
-                this.template('styles/base/layout'+ext, this.paths.src+'/styles/base/layout'+ext);
+                if (this.css !== 'Vanilla') this.template('app/styles/main'+ext, this.paths.src+'/styles/main'+ext);
+                this.template('app/styles/base/normalize'+ext, this.paths.src+'/styles/base/normalize'+ext);
+                this.template('app/styles/base/typography'+ext, this.paths.src+'/styles/base/typography'+ext);
+                this.template('app/styles/base/layout'+ext, this.paths.src+'/styles/base/layout'+ext);
             },
 
             scripts: function()
             {
                 this.mkdir(this.paths.src+'/scripts');
-                this.template('scripts/main.js', this.paths.src+'/scripts/main.js');
+                this.template('app/scripts/main.js', this.paths.src+'/scripts/main.js');
             },
 
             templates: function()
             {
-                this.copy('404.html', this.paths.src+'/404.html');
+                this.copy('app/404.html', this.paths.src+'/404.html');
 
-                this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
+                this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'app/index.html'));
                 this.indexFile = this.engine(this.indexFile, this);
 
                 // Wire Bootstrap plugins.
@@ -340,18 +302,18 @@ module.exports = yeoman.generators.Base.extend
         {
             if (this.options['skip-install'])
             {
-                this.log('\nAfter running ' + chalk.yellow.bold('npm install & bower install') + ', inject your front-end dependencies by running ' + chalk.yellow.bold('gulp wiredep') + '.');
-
-                return;
+                this.log('Skipping Node and Bower dependency installation. You will have to manually run ' + chalk.yellow.bold('npm install & bower install') + '.');
             }
-
-            this.installDependencies(
+            else
             {
-                skipMessage: this.options['skip-install-message'],
-                skipInstall: this.options['skip-install']
-            });
+                this.log(chalk.magenta('Installing Node modules and Bower components for you using your ') + chalk.yellow.bold('package.json') + chalk.magenta(' and ') + chalk.yellow.bold('bower.json') + chalk.magenta('...'));
+                this.installDependencies({ skipMessage: true });
+            }
+        },
 
-            this.on('end', function()
+        end:
+        {
+            wiredep: function()
             {
                 if (!this.includeBrowserify)
                 {
@@ -373,19 +335,26 @@ module.exports = yeoman.generators.Base.extend
                         src: this.paths.src+'/**/*.{html,shtml,htm,html.erb,asp,php}'
                     });
                 }
+            },
 
-                // Ideally we should use composeWith, but we're invoking it here
-                // because generator-mocha is changing the working directory
-                // https://github.com/yeoman/generator-mocha/issues/28.
-                this.invoke(this.options['test-framework'],
+            test: function()
+            {
+                this.composeWith(this.options['test-framework'] + ':app',
                 {
                     options:
                     {
-                        'skip-message': this.options['skip-install-message'],
                         'skip-install': this.options['skip-install']
                     }
+                },
+                {
+                    local: require.resolve('generator-mocha/generators/app/index.js')
                 });
-            }.bind(this));
+            },
+
+            bye: function()
+            {
+                this.log(chalk.green('Finished generating app!'));
+            }
         }
     }
 );
