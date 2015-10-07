@@ -98,7 +98,7 @@ gulp.task('styles', function()
     .pipe($postcss([autoprefixer(config.styles.autoprefixer)]))
     .pipe($if(config.env.cssSourcemaps, $sourcemaps.write()))
     .pipe($size({
-      title: '[styles:app]',
+      title: '[styles]',
       gzip: true
     }))
     .pipe(gulp.dest(config.styles.output));
