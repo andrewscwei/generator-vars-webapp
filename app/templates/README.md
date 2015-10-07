@@ -38,7 +38,7 @@ Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'
 
 ```gulp serve```: Serves the ```<%= paths.build %>``` directory to ```localhost```.
 
-See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify```, ```--skip-csso```, etc.
+See ```./tasks/.taskconfig``` for more custom flags such as ```--skip-js-min```, ```--skip-css-min```, etc.
 
 ## Cloud Setup (Linux)
 

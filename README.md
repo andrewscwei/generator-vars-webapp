@@ -21,58 +21,54 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 
 ```
 .
++-- .bowerrc
++-- .editorconfig
++-- .gitattributes
++-- .gitignore
++-- .jshintrc
 +-- app
+|   +-- .htaccess
+|   +-- .jshintrc
+|   +-- fonts
+|   +-- images
+|   |   +-- apple-touch-icon-57x57.png
+|   |   +-- apple-touch-icon-72x72.png
+|   |   +-- apple-touch-icon-114x114.png
+|   |   +-- apple-touch-icon.png
+|   |   +-- favico.png
+|   |   +-- og-image.png
+|   +-- scripts
+|   |   +-- main.js
 |   +-- styles
 |   |   +-- base
+|   |   |   +-- definitions.{scss,styl}
 |   |   |   +-- layout.{css,scss,styl}
 |   |   |   +-- normalize.{css,scss,styl}
 |   |   |   +-- typography.{css,scss,styl}
 |   |   +-- components
 |   |   +-- modules
 |   |   +-- main.{scss,styl}
-|   +-- images
-|   +-- scripts
-|   |   +-- main.js
-|   +-- .htaccess
+|   +-- videos
 |   +-- 404.html
-|   +-- apple-touch-icon-57x57.png
-|   +-- apple-touch-icon-72x72.png
-|   +-- apple-touch-icon-114x114.png
-|   +-- apple-touch-icon.png
 |   +-- favico.ico
-|   +-- favico.png
 |   +-- index.html
-|   +-- og-image.png
 |   +-- README.md
 |   +-- robots.txt
-+-- build // runtime files go here
++-- public // runtime files go here
 +-- bower_components
 +-- node_modules
 +-- tasks
+|   +-- .jshintrc
+|   +-- .taskconfig
 |   +-- build.js
 |   +-- clean.js
-|   +-- config.js
-|   +-- extras.js
-|   +-- fonts.js
-|   +-- images.js
-|   +-- scripts.js
 |   +-- serve.js
-|   +-- static.js
-|   +-- styles.js
-|   +-- templates.js
-|   +-- videos.js
 |   +-- wiredep.js
 +-- test
 |   +-- bower_components
 |   +-- spec
 |   +-- index.html
 |   +-- bower.json
-+-- .bowerrc
-+-- .editorconfig
-+-- .gitattributes
-+-- .gitignore
-+-- .jshintrc
-+-- .yo-rc.json
 +-- gulpfile.js
 +-- bower.json
 +-- package.json
@@ -88,7 +84,7 @@ VARIANTE's Yeoman generator for a raw front-end web app.
 
 ```gulp serve```: Serves the ```build``` directory to ```localhost```.
 
-See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify```, ```--skip-csso```, etc.
+See ```tasks/.taskconfig``` for more tasks and custom flags such as ```--skip-js-min```, ```--skip-css-min```, etc.
 
 ## Usage
 
@@ -113,6 +109,18 @@ yo vars-webapp [app-name]
 ```
 
 For details on initial setup procedures of the project, see its generated ```README.md``` file.
+
+## Release Notes
+
+### 2.0.0
+1. Updated version numbers of NPM package dependencies.
+2. Gulp tasks are now compressed into fewer files. As a result `require-dir` dependency is no longer necessary and is removed from `package.json`.
+3. Task configurations are now stored in `./tasks/.taskconfig`.
+4. `favicon.png`, Apple touch and Open Graph specific icons are now moved to `app/images`. `favicon.ico` remains in the root directory.
+5. `gulp-imagemin` is removed because it is the most taxing task in the Gulp pipeline. Images should be optimized outside of the Gulp pipeline instead.
+6. Runtime files are now deployed to `./public` instead of `./build`.
+6. Minor syntactic sugar changes.
+7. Lots of optimizations, particularly boosting the efficiency of automated rebuilds during development.
 
 ## License
 

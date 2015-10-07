@@ -1,0 +1,5 @@
+{
+  "extends": "../.jshintrc",
+  "strict": true,
+  "jquery": <% if (includeBrowserify) { %>false<% } else { %>true<% } %>
+}

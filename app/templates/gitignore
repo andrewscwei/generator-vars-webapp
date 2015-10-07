@@ -1,8 +1,6 @@
 node_modules
 bower_components
-<%= paths.build %>
-<%= paths.tmp %>
+/<%= paths.build %>
+/<%= paths.tmp %>
 .DS_STORE
-*.sublime-project
-*.sublime-workspace
 npm-debug.log

@@ -1,11 +1,10 @@
 {
-    "name": "<%= _.slugify(appname) %>",
-    "dependencies":
-    {<% if (includeBootstrap) { %><% if (css == 'Sass') { %>
-        "bootstrap-sass-official": "~3.3.1"<% } else { %>
-        "bootstrap": "~3.1.1"<% } %><% if (!includeBrowserify || includeModernizr) { %>,<% } %><% } %><% if (!includeBrowserify) { %>
-        "jquery": "~2.1.x"<% if (includeModernizr) { %>,<% } %><% } %><% if (includeModernizr) { %>
-        "modernizr": "~2.6.2"<% } %>
-    },
-    "devDependencies": {}
+  "name": "<%= _.slugify(appname) %>",
+  "dependencies": {<% if (includeBootstrap) { %><% if (css == 'Sass') { %>
+    "bootstrap-sass-official": "~3.3.1"<% } else { %>
+    "bootstrap": "~3.1.1"<% } %><% if (!includeBrowserify || includeModernizr) { %>,<% } %><% } %><% if (!includeBrowserify) { %>
+    "jquery": "~2.1.x"<% if (includeModernizr) { %>,<% } %><% } %><% if (includeModernizr) { %>
+    "modernizr": "~2.6.2"<% } %>
+  },
+  "devDependencies": {}
 }
