@@ -87,13 +87,11 @@ gulp.task('styles', function()
 {
   return gulp.src(config.styles.entry)
     .pipe($if(config.env.cssSourcemaps, $sourcemaps.init()))<% if (css == 'Stylus') { %>
-    .pipe($stylus(config.styles.stylus)
-    .on('error', function(err) {
+    .pipe($stylus(config.styles.stylus).on('error', function(err) {
       $util.log($util.colors.red('[stylus] error: ' + err.message));
       this.emit('end');
     }))<% } else if (css == 'Sass') { %>
-    .pipe($sass(config.styles.sass)
-    .on('error', function(err) {
+    .pipe($sass(config.styles.sass).on('error', function(err) {
       $util.log($util.colors.red('[sass] error: ' + err.message));
       this.emit('end');
     }))<% } %>
