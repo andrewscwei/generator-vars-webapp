@@ -207,7 +207,6 @@ var serve = {
       }
     },
     files: (debug) ? [paths.tmp] : [paths.build],
-    browser: 'google chrome',
     notify: false,
     port: (typeof port === 'number') ? env.port : 9000
   }
