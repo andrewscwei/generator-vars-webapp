@@ -30,7 +30,7 @@ Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'
 
 ## Tasks
 
-```gulp --debug --watch --serve```: Generates the Jekyll project, compiles all assets, serves the site and watches for file changes. Best used during development.
+```gulp --debug --watch --serve```: Compiles all assets/templates, serves the site and watches for file changes. Best used during development.
 
 ```gulp```: Builds the entire project in production.
 
