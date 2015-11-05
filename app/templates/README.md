@@ -30,15 +30,11 @@ Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'
 
 ## Tasks
 
-```gulp build --debug```: Builds all source files in the ```<%= paths.src %>``` directory but skips all compression tasks.
+```gulp --debug --watch --serve```: Generates the Jekyll project, compiles all assets, serves the site and watches for file changes. Best used during development.
 
-```gulp build```: Builds all source files in the ```<%= paths.src %>``` directory with asset compression such as CSS/HTML/JavaScript minification and deploys them to the ```<%= paths.build %>``` directory.
+```gulp```: Builds the entire project in production.
 
-```gulp serve --debug --watch```: Serves the ```<%= paths.tmp %>``` directory to ```localhost``` and immediately watches source files for changes. Any change in the source files will invoke its corresponding build tasks. This is great for debugging.
-
-```gulp serve```: Serves the ```<%= paths.build %>``` directory to ```localhost```.
-
-See ```./tasks/.taskconfig``` for more custom flags such as ```--skip-js-min```, ```--skip-css-min```, etc.
+All tasks are broken into micro-tasks, check out the ```tasks``` folder for more details. Also see ```tasks/.taskconfig``` for more custom flags such as ```--skip-js-min```, ```--skip-css-min```, etc.
 
 ## Cloud Setup (Linux)
 
