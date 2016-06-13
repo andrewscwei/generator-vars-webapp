@@ -1,6 +1,6 @@
 # generator-vars-webapp
 
-VARIANTE's Yeoman generator for a raw front-end web app.
+Yeoman generator for a raw front-end web app.
 
 ## Features
 
@@ -107,6 +107,10 @@ yo vars-webapp [app-name]
 For details on initial setup procedures of the project, see its generated ```README.md``` file.
 
 ## Release Notes
+
+### 2.1.0
+
+This generator uses a dated approach to generate static websites, hence it's no longer maintained. The web advances quickly :)
 
 ### 2.0.0
 1. Updated version numbers of NPM package dependencies.
