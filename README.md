@@ -121,7 +121,3 @@ This generator uses a dated approach to generate static websites, hence it's no 
 6. Runtime files are now deployed to `./public` instead of `./build`.
 6. Minor syntactic sugar changes.
 7. Lots of optimizations, particularly boosting the efficiency of automated rebuilds during development.
-
-## License
-
-This software is released under the [MIT License](http://opensource.org/licenses/MIT).
