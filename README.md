@@ -1,4 +1,4 @@
-# generator-vars-webapp
+# generator-vars-webapp ![](https://img.shields.io/maintenance/no/2016)
 
 Yeoman generator for a raw front-end web app.
 
